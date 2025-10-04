@@ -43,16 +43,14 @@ public class App {
                     System.out.println("Digite o termo que deseja pesquisar: ");
                     String termo = scanner.next();
                     System.out.print("\n");
-                    Palavra[] palavras = dicionario.getPalavras();
                     found = false;
-                    for (Palavra p : palavras) {
-                        if (p != null && p.getTermo().equalsIgnoreCase(termo)) {
+                    for (int i = 0; i < dicionario.getQuantPalavra(); i++) {
+                        if ((dicionario.getPalavras()[i].getTermo() != null) && (dicionario.getPalavras()[i].getTermo().equalsIgnoreCase(termo))) {
                             found = true;
-                            System.out.println("Termo: " + p.getTermo());
-                            String[] significados = p.getSignificado();
-                            for (int i = 0; i < p.getQuantSignificado(); i++) {
-                                if (significados[i] != null) {
-                                    System.out.println(" - " + significados[i]);
+                            System.out.println("Termo: " + dicionario.getPalavras().getTermo());
+                            for (int j = 0; j < dicionario.getPalavras()[i].getQuantSignificado(); j++) {
+                                if (dicionario.getPalavras()[i].getSignificado()[j] != null) {
+                                    System.out.println(j + ".  " + dicionario.getPalavras()[i].getSignificado()[j]);
                                 }
                             }
                             break;
@@ -70,15 +68,14 @@ public class App {
                 case 4: {
                     System.out.println("Digite o termo que deseja alterar um significado: ");
                     String termo = scanner.next();
-                    Palavra[] palavras = dicionario.getPalavras();
                     found = false;
-                    for (Palavra p : palavras) {
-                        if (p != null && p.getTermo().equalsIgnoreCase(termo)) {
+                    for (int i = 0; i < dicionario.getQuantPalavra(); i++) {
+                        if (p != null && dicionario.getPalavras().getTermo().equalsIgnoreCase(termo)) {
                             found = true;
-                            String[] significados = p.getSignificado();
-                            for (int i = 0; i < p.getQuantSignificado(); i++) {
-                                if (significados[i] != null) {
-                                    System.out.println(i + " - " + significados[i]);
+                            String[] significados = dicionario.getPalavras().getSignificado();
+                            for (int j = 0; j < dicionario.getPalavras()[i].getQuantSignificado(); j++) {
+                                if (dicionario.getPalavras()[i].getSignificado()[j] != null) {
+                                    System.out.println(j + ". " + dicionario.getPalavras()[i].etSignificado()[j]);
                                 }
                             }
                             System.out.println("Qual significado deseja alterar:");
@@ -86,7 +83,7 @@ public class App {
                             scanner.nextLine(); // Consume leftover newline
                             System.out.println("Digite o novo significado:");
                             String significado = scanner.nextLine();
-                            p.alteraSignificado(significado, position);
+                            dicionario.getPalavras()[i].alteraSignificado(significado, position);
                             break;
                         }
                     }
@@ -96,17 +93,16 @@ public class App {
                 }
                     break;
                 case 5: {
-                    Palavra[] palavras = dicionario.getPalavras();
                     for (int i = 0; i < dicionario.getQuantPalavra(); i++) {
-                        if (palavras[i] != null) {
-                            System.out.println(i + " - " + palavras[i].getTermo());
+                        if (dicionario.getPalavras()[i] != null) {
+                            System.out.println(i + ". " + dicionario.getPalavras()[i].getTermo());
                         }
                     }
                     System.out.println("Digite a posicao da palavra que deseja excluir: ");
                     int position = scanner.nextInt();
                     found = false;
                     if (position >= 0 && position < dicionario.getQuantPalavra()) {
-                        Palavra p = palavras[position];
+                        Palavra p = dicionario.getPalavras()[position];
                         if (p != null) {
                             found = true;
                             dicionario.excluiPalavra(position);
